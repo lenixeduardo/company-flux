@@ -22,7 +22,7 @@ export default function OnboardingPage() {
   const goToDashboard = async () => {
     setLoading(true);
     try {
-      const updated = await tenantsApi.progressOnboarding(4);
+      await tenantsApi.progressOnboarding(4);
       updateTenant({ onboardingDone: true, onboardingStep: 4, status: 'ACTIVE' });
       toast.success('Bem-vindo ao Flux Financeiro!');
       router.push('/dashboard');

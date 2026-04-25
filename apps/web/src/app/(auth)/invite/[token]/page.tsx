@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Building2, Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { Building2, Loader2, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { invitesApi } from '@/lib/api-client';
 import { useAuthStore } from '@/store/auth.store';
@@ -29,7 +29,7 @@ const ROLE_LABELS: Record<string, string> = {
 export default function InviteAcceptPage() {
   const { token } = useParams<{ token: string }>();
   const router = useRouter();
-  const { isAuthenticated, user, setAuth } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
   const [inviteInfo, setInviteInfo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +40,9 @@ export default function InviteAcceptPage() {
   useEffect(() => {
     invitesApi.getInfo(token)
       .then(setInviteInfo)
-      .catch((e) => setError(e?.response?.data?.message ?? 'Link inválido ou expirado'))
+      .catch((e: { response?: { data?: { message?: string } } }) =>
+        setError(e?.response?.data?.message ?? 'Link inválido ou expirado'),
+      )
       .finally(() => setLoading(false));
   }, [token]);
 
