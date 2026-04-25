@@ -125,4 +125,63 @@ export const invitesApi = {
     api.post(`/invites/${token}/accept`, data ?? {}).then((r) => r.data),
 };
 
+export const transactionsApi = {
+  list: (params?: any) => api.get('/transactions', { params }).then((r) => r.data),
+  get: (id: string) => api.get(`/transactions/${id}`).then((r) => r.data),
+  create: (data: any) => api.post('/transactions', data).then((r) => r.data),
+  update: (id: string, data: any) => api.patch(`/transactions/${id}`, data).then((r) => r.data),
+  remove: (id: string) => api.delete(`/transactions/${id}`).then((r) => r.data),
+  confirm: (id: string) => api.post(`/transactions/${id}/confirm`).then((r) => r.data),
+};
+
+export const categoriesApi = {
+  list: () => api.get('/categories').then((r) => r.data),
+  create: (data: any) => api.post('/categories', data).then((r) => r.data),
+  update: (id: string, data: any) => api.patch(`/categories/${id}`, data).then((r) => r.data),
+  remove: (id: string) => api.delete(`/categories/${id}`).then((r) => r.data),
+};
+
+export const bankAccountsApi = {
+  list: () => api.get('/bank-accounts').then((r) => r.data),
+  create: (data: any) => api.post('/bank-accounts', data).then((r) => r.data),
+  update: (id: string, data: any) => api.patch(`/bank-accounts/${id}`, data).then((r) => r.data),
+  remove: (id: string) => api.delete(`/bank-accounts/${id}`).then((r) => r.data),
+  getSummary: () => api.get('/bank-accounts/summary').then((r) => r.data),
+};
+
+export const dashboardApi = {
+  getSummary: (year?: number, month?: number) =>
+    api.get('/dashboard/summary', { params: { year, month } }).then((r) => r.data),
+  getMonthlyComparison: (months = 6) =>
+    api.get('/dashboard/monthly-comparison', { params: { months } }).then((r) => r.data),
+  getCategoryBreakdown: (type: 'INCOME' | 'EXPENSE', year?: number, month?: number) =>
+    api.get('/dashboard/category-breakdown', { params: { type, year, month } }).then((r) => r.data),
+  getUpcoming: (days = 7) =>
+    api.get('/dashboard/upcoming', { params: { days } }).then((r) => r.data),
+  getBurnRate: () => api.get('/dashboard/burn-rate').then((r) => r.data),
+};
+
+export const suppliersApi = {
+  list: (params?: any) => api.get('/suppliers', { params }).then((r) => r.data),
+  get: (id: string) => api.get(`/suppliers/${id}`).then((r) => r.data),
+  create: (data: any) => api.post('/suppliers', data).then((r) => r.data),
+  update: (id: string, data: any) => api.patch(`/suppliers/${id}`, data).then((r) => r.data),
+  remove: (id: string) => api.delete(`/suppliers/${id}`).then((r) => r.data),
+  getPaymentHistory: (id: string) => api.get(`/suppliers/${id}/payment-history`).then((r) => r.data),
+};
+
+export const invoicesApi = {
+  list: (params?: any) => api.get('/invoices', { params }).then((r) => r.data),
+  get: (id: string) => api.get(`/invoices/${id}`).then((r) => r.data),
+  upload: (file: File, supplierId?: string) => {
+    const form = new FormData();
+    form.append('file', file);
+    return api.post(`/invoices/upload${supplierId ? `?supplierId=${supplierId}` : ''}`, form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }).then((r) => r.data);
+  },
+  getDownloadUrl: (id: string) => api.get(`/invoices/${id}/download`).then((r) => r.data),
+  remove: (id: string) => api.delete(`/invoices/${id}`).then((r) => r.data),
+};
+
 export default api;
