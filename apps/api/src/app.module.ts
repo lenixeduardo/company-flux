@@ -15,6 +15,14 @@ import { AuthModule } from './modules/auth/auth.module.js';
 import { UsersModule } from './modules/users/users.module.js';
 import { TenantsModule } from './modules/tenants/tenants.module.js';
 import { InvitesModule } from './modules/invites/invites.module.js';
+import { SuppliersModule } from './modules/suppliers/suppliers.module.js';
+import { StorageModule } from './modules/storage/storage.module.js';
+import { InvoicesModule } from './modules/invoices/invoices.module.js';
+import { QueueModule } from './modules/queue/queue.module.js';
+import { BankAccountsModule } from './modules/bank-accounts/bank-accounts.module.js';
+import { CategoriesModule } from './modules/categories/categories.module.js';
+import { TransactionsModule } from './modules/transactions/transactions.module.js';
+import { DashboardModule } from './modules/dashboard/dashboard.module.js';
 
 @Module({
   imports: [
@@ -87,6 +95,14 @@ import { InvitesModule } from './modules/invites/invites.module.js';
     UsersModule,
     TenantsModule,
     InvitesModule,
+    SuppliersModule,
+    StorageModule,
+    InvoicesModule,
+    QueueModule,
+    BankAccountsModule,
+    CategoriesModule,
+    TransactionsModule,
+    DashboardModule,
   ],
 })
 export class AppModule {}
