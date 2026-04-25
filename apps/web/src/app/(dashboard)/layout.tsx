@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
+import { DashboardShell } from '@/components/layouts/DashboardShell';
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return <DashboardShell>{children}</DashboardShell>;
 }
