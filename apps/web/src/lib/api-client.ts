@@ -64,6 +64,9 @@ api.interceptors.response.use(
         refreshQueue.forEach(({ reject }) => reject(refreshError));
         refreshQueue = [];
         localStorage.removeItem('flux-auth-store');
+        if (typeof document !== 'undefined') {
+          document.cookie = 'flux-session=; path=/; max-age=0; SameSite=Lax';
+        }
         if (typeof window !== 'undefined') window.location.href = '/login';
         return Promise.reject(refreshError);
       } finally {

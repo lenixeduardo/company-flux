@@ -51,7 +51,10 @@ export const useAuthStore = create<AuthState>()(
       tenant: null,
       role: null,
       isAuthenticated: false,
-      setAuth: (data) =>
+      setAuth: (data) => {
+        if (typeof document !== 'undefined') {
+          document.cookie = `flux-session=1; path=/; max-age=${7 * 24 * 3600}; SameSite=Lax`;
+        }
         set({
           user: data.user,
           accessToken: data.accessToken,
@@ -59,8 +62,12 @@ export const useAuthStore = create<AuthState>()(
           tenant: data.tenant,
           role: data.role ?? null,
           isAuthenticated: true,
-        }),
-      clearAuth: () =>
+        });
+      },
+      clearAuth: () => {
+        if (typeof document !== 'undefined') {
+          document.cookie = 'flux-session=; path=/; max-age=0; SameSite=Lax';
+        }
         set({
           user: null,
           accessToken: null,
@@ -68,7 +75,8 @@ export const useAuthStore = create<AuthState>()(
           tenant: null,
           role: null,
           isAuthenticated: false,
-        }),
+        });
+      },
       updateUser: (partial) =>
         set((s) => ({ user: s.user ? { ...s.user, ...partial } : null })),
       updateTenant: (partial) =>
