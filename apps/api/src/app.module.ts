@@ -23,6 +23,8 @@ import { BankAccountsModule } from './modules/bank-accounts/bank-accounts.module
 import { CategoriesModule } from './modules/categories/categories.module.js';
 import { TransactionsModule } from './modules/transactions/transactions.module.js';
 import { DashboardModule } from './modules/dashboard/dashboard.module.js';
+import { TaxModule } from './modules/tax/tax.module.js';
+import { BillingModule } from './modules/billing/billing.module.js';
 
 @Module({
   imports: [
@@ -103,6 +105,8 @@ import { DashboardModule } from './modules/dashboard/dashboard.module.js';
     CategoriesModule,
     TransactionsModule,
     DashboardModule,
+    TaxModule,
+    BillingModule,
   ],
 })
 export class AppModule {}
