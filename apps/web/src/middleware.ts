@@ -19,7 +19,6 @@ export function middleware(request: NextRequest) {
 
   const isAuthPage = PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'));
   const isInvite = pathname.startsWith('/invite/');
-  const isOnboarding = pathname.startsWith('/onboarding');
   const isPublic = isAuthPage || isInvite;
 
   if (!hasSession && !isPublic) {

@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { UserRole } from '@flux/shared';
 
 @ApiTags('Tax')
 @ApiBearerAuth()
@@ -15,7 +16,7 @@ export class TaxController {
   constructor(private taxService: TaxService) {}
 
   @Post('calculate')
-  @Roles('OWNER', 'ADMIN', 'FINANCEIRO')
+  @Roles(UserRole.OWNER, UserRole.ADMIN, UserRole.FINANCEIRO)
   @ApiOperation({ summary: 'Calculate tax obligations for a period' })
   calculate(@CurrentUser() user: any, @Body() dto: CalculateTaxDto) {
     return this.taxService.calculate(user.tenantId, dto);
@@ -43,7 +44,7 @@ export class TaxController {
   }
 
   @Post('obligations/:id/pay')
-  @Roles('OWNER', 'ADMIN', 'FINANCEIRO')
+  @Roles(UserRole.OWNER, UserRole.ADMIN, UserRole.FINANCEIRO)
   @ApiOperation({ summary: 'Mark obligation as paid' })
   markAsPaid(
     @Param('id') id: string,
@@ -69,7 +70,7 @@ export class TaxController {
   }
 
   @Post('settings')
-  @Roles('OWNER', 'ADMIN')
+  @Roles(UserRole.OWNER, UserRole.ADMIN)
   @ApiOperation({ summary: 'Update tax regime settings' })
   updateSettings(@CurrentUser() user: any, @Body() dto: UpdateTaxSettingsDto) {
     return this.taxService.updateSettings(user.tenantId, dto);

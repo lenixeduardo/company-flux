@@ -18,7 +18,7 @@ api.interceptors.request.use((config) => {
         const state = JSON.parse(stored);
         const token = state?.state?.accessToken;
         if (token) config.headers.Authorization = `Bearer ${token}`;
-      } catch (_) {}
+      } catch (_) { /* malformed JSON in localStorage — skip token injection */ }
     }
   }
   return config;

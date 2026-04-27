@@ -88,7 +88,8 @@ export default function TransactionsPage() {
   });
 
   const transactions: Transaction[] = data?.data ?? data ?? [];
-  const pageCount = data?.pageCount ?? data?.meta?.pageCount ?? undefined;
+  const pageCount = data?.pageCount ?? data?.meta?.pageCount ?? data?.totalPages ?? undefined;
+  const totalCount = data?.total ?? data?.meta?.total ?? undefined;
 
   const confirmMutation = useMutation({
     mutationFn: (id: string) => transactionsApi.confirm(id),
@@ -365,11 +366,13 @@ export default function TransactionsPage() {
         data={transactions}
         columns={columns}
         isLoading={isLoading}
+        totalCount={totalCount}
         pageCount={pageCount}
         pageIndex={pageIndex}
         pageSize={PAGE_SIZE}
         onPageChange={setPageIndex}
         emptyMessage="Nenhuma transação encontrada para este período."
+        showColumnToggle
       />
 
       {/* Create/Edit Dialog */}

@@ -7,6 +7,9 @@ const config: Config = {
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
-  moduleNameMapper: { '^@flux/shared(.*)$': '<rootDir>/../../packages/shared/src$1' },
+  moduleNameMapper: {
+    '^@flux/shared(.*)$': '<rootDir>/../../../packages/shared/src$1',
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
 };
 export default config;

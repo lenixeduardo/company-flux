@@ -94,7 +94,8 @@ export default function SuppliersPage() {
   });
 
   const suppliers: Supplier[] = data?.data ?? data ?? [];
-  const pageCount = data?.pageCount ?? data?.meta?.pageCount ?? undefined;
+  const pageCount = data?.pageCount ?? data?.meta?.pageCount ?? data?.totalPages ?? undefined;
+  const totalCount = data?.total ?? data?.meta?.total ?? undefined;
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => suppliersApi.remove(id),
@@ -266,11 +267,13 @@ export default function SuppliersPage() {
         data={suppliers}
         columns={columns}
         isLoading={isLoading}
+        totalCount={totalCount}
         pageCount={pageCount}
         pageIndex={pageIndex}
         pageSize={PAGE_SIZE}
         onPageChange={setPageIndex}
         emptyMessage="Nenhum fornecedor cadastrado."
+        showColumnToggle
       />
 
       {/* Create/Edit Dialog */}

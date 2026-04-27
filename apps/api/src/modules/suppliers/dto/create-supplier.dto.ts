@@ -1,17 +1,7 @@
 import { IsEmail, IsEnum, IsInt, IsOptional, IsString, IsUrl, Matches, Min } from 'class-validator';
+import { SupplierCategory } from '@prisma/client';
 
-export enum SupplierCategory {
-  TECHNOLOGY = 'TECHNOLOGY',
-  SERVICES = 'SERVICES',
-  MATERIALS = 'MATERIALS',
-  UTILITIES = 'UTILITIES',
-  RENT = 'RENT',
-  LOGISTICS = 'LOGISTICS',
-  MARKETING = 'MARKETING',
-  LEGAL = 'LEGAL',
-  ACCOUNTING = 'ACCOUNTING',
-  OTHER = 'OTHER',
-}
+export { SupplierCategory };
 
 export class CreateSupplierDto {
   @IsString() name: string;

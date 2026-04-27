@@ -9,8 +9,6 @@
 // Mocks — must appear before any import of the module under test
 // ---------------------------------------------------------------------------
 
-const mockRedirect = jest.fn();
-const mockNext = jest.fn();
 const mockCloneUrl = jest.fn();
 
 jest.mock('next/server', () => {
@@ -92,7 +90,6 @@ import { middleware } from './middleware';
 // ---------------------------------------------------------------------------
 
 function makeRequest(path: string, cookies: Record<string, string> = {}): InstanceType<typeof NextRequest> {
-  // @ts-expect-error — MockNextRequest matches the shape the middleware uses
   return new NextRequest('http://localhost' + path, cookies);
 }
 
@@ -152,7 +149,7 @@ describe('middleware', () => {
   describe('unauthenticated requests', () => {
     it('redirects / to /login?next=/', () => {
       const req = makeRequest('/');
-      const result = middleware(req) as any;
+      middleware(req);
 
       expect(NextResponse.redirect).toHaveBeenCalledTimes(1);
       const redirectUrl = (NextResponse.redirect as jest.Mock).mock.calls[0][0];

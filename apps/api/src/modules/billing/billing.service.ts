@@ -11,7 +11,7 @@ export class BillingService {
 
   constructor(private prisma: PrismaService, private config: ConfigService) {
     this.stripe = new Stripe(this.config.get<string>('STRIPE_SECRET_KEY') ?? '', {
-      apiVersion: '2024-06-20',
+      apiVersion: '2023-10-16',
     });
   }
 

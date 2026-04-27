@@ -94,7 +94,7 @@ export class InvoicesService {
     } catch (_) {
       // Ignore S3 deletion errors — the record is still archived
     }
-    return this.prisma.invoice.update({ where: { id }, data: { status: 'ARCHIVED' } });
+    return this.prisma.invoice.update({ where: { id }, data: { status: 'REJECTED' as any } });
   }
 
   async processXmlInvoice(invoiceId: string, tenantId: string) {

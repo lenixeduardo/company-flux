@@ -66,7 +66,8 @@ export default function InvoicesPage() {
   });
 
   const invoices: Invoice[] = data?.data ?? data ?? [];
-  const pageCount = data?.pageCount ?? data?.meta?.pageCount ?? undefined;
+  const pageCount = data?.pageCount ?? data?.meta?.pageCount ?? data?.totalPages ?? undefined;
+  const totalCount = data?.total ?? data?.meta?.total ?? undefined;
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => invoicesApi.remove(id),
@@ -78,7 +79,7 @@ export default function InvoicesPage() {
       const result = await invoicesApi.getDownloadUrl(invoice.id);
       const url = result?.url ?? result;
       if (url) window.open(url, '_blank');
-    } catch (_) {}
+    } catch (_) { /* download errors handled silently */ }
   };
 
   const columns: ColumnDef<Invoice>[] = [
@@ -217,6 +218,7 @@ export default function InvoicesPage() {
         data={invoices}
         columns={columns}
         isLoading={isLoading}
+        totalCount={totalCount}
         pageCount={pageCount}
         pageIndex={pageIndex}
         pageSize={PAGE_SIZE}
