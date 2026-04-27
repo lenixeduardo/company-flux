@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { TransactionType } from './dto/create-transaction.dto';
+import { TransactionType, TransactionStatus } from './dto/create-transaction.dto';
 
 // ---------------------------------------------------------------------------
 // Mock @flux/shared so tests don't depend on real module resolution
@@ -258,7 +258,7 @@ describe('TransactionsService', () => {
         status: 'CONFIRMED',
       });
 
-      await service.create(tenantId, userId, { ...createDto, status: 'CONFIRMED' });
+      await service.create(tenantId, userId, { ...createDto, status: TransactionStatus.CONFIRMED });
 
       const createCall = prismaMock.transaction.create.mock.calls[0][0] as {
         data: { status: string };

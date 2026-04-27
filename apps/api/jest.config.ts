@@ -8,7 +8,7 @@ const config: Config = {
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
   moduleNameMapper: {
-    '^@flux/shared(.*)$': '<rootDir>/../../packages/shared/src$1',
+    '^@flux/shared(.*)$': '<rootDir>/../../../packages/shared/src$1',
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 };

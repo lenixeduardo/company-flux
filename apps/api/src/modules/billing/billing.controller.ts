@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Headers, Post, RawBodyRequest, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 import { BillingService } from './billing.service';
