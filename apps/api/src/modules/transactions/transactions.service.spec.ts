@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { TransactionType } from './dto/create-transaction.dto';
 
 // ---------------------------------------------------------------------------
 // Mock @flux/shared so tests don't depend on real module resolution
@@ -65,7 +66,7 @@ const baseTransaction = {
 };
 
 const createDto = {
-  type: 'INCOME' as const,
+  type: TransactionType.INCOME,
   description: 'Test income',
   amount: 100.5,
   dueDate: '2025-01-15',

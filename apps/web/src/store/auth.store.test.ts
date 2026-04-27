@@ -50,6 +50,7 @@ beforeEach(() => {
   // Clear document.cookie
   Object.defineProperty(document, 'cookie', {
     writable: true,
+    configurable: true,
     value: '',
   });
 });
@@ -220,6 +221,7 @@ describe('clearAuth()', () => {
     const cookieValues: string[] = [];
     const descriptor = Object.getOwnPropertyDescriptor(document, 'cookie');
     Object.defineProperty(document, 'cookie', {
+      configurable: true,
       get: descriptor?.get ?? (() => ''),
       set: (val: string) => {
         cookieValues.push(val);

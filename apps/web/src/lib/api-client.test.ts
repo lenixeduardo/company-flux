@@ -18,13 +18,13 @@ jest.mock('axios', () => {
     response: { use: jest.fn(), eject: jest.fn() },
   };
 
-  const instance = {
+  const instance = Object.assign(jest.fn().mockResolvedValue({ data: {} }), {
     interceptors,
     get: jest.fn(),
     post: jest.fn(),
     patch: jest.fn(),
     delete: jest.fn(),
-  };
+  });
 
   const axiosMock = jest.fn().mockResolvedValue({ data: {} }) as jest.Mock & {
     create: jest.Mock;
@@ -48,37 +48,50 @@ type RequestInterceptor = (config: AxiosRequestConfig & { headers: Record<string
 type ResponseFulfilled = (response: any) => any;
 type ResponseRejected = (error: any) => Promise<any>;
 
+let capturedInstance: jest.Mock;
+let cachedRequestInterceptor: RequestInterceptor;
+let cachedResponseFulfilled: ResponseFulfilled;
+let cachedResponseRejected: ResponseRejected;
+
 function getRequestInterceptor(): RequestInterceptor {
-  const mockedAxios = axios as jest.MockedFunction<typeof axios> & { create: jest.Mock };
-  const instance = mockedAxios.create.mock.results[0].value;
-  const [fulfilled] = instance.interceptors.request.use.mock.calls[0];
-  return fulfilled;
+  return cachedRequestInterceptor;
 }
 
 function getResponseInterceptors(): [ResponseFulfilled, ResponseRejected] {
-  const mockedAxios = axios as jest.MockedFunction<typeof axios> & { create: jest.Mock };
-  const instance = mockedAxios.create.mock.results[0].value;
-  const [fulfilled, rejected] = instance.interceptors.response.use.mock.calls[0];
-  return [fulfilled, rejected];
+  return [cachedResponseFulfilled, cachedResponseRejected];
 }
 
 // ---------------------------------------------------------------------------
 // Import the module under test (after mocks are registered)
 // ---------------------------------------------------------------------------
 
-// We import at module level; resetModules is used in some describe blocks
-// to get a fresh isRefreshing state for concurrent-refresh tests.
+// We import at module level; interceptors are registered once at module load time.
 import './api-client';
+
+// ---------------------------------------------------------------------------
+// Capture mock references once (before per-test resets run)
+// ---------------------------------------------------------------------------
+
+beforeAll(() => {
+  const mockedAxios = axios as jest.MockedFunction<typeof axios> & { create: jest.Mock };
+  capturedInstance = mockedAxios.create.mock.results[0].value;
+  [cachedRequestInterceptor] = capturedInstance.interceptors.request.use.mock.calls[0];
+  [cachedResponseFulfilled, cachedResponseRejected] = capturedInstance.interceptors.response.use.mock.calls[0];
+});
 
 // ---------------------------------------------------------------------------
 // Setup
 // ---------------------------------------------------------------------------
 
 beforeEach(() => {
-  jest.clearAllMocks();
+  const mockedAxios = axios as jest.MockedFunction<typeof axios> & { create: jest.Mock; post: jest.Mock };
+  // Reset specific mocks without wiping interceptor registration history
+  mockedAxios.post.mockReset();
+  capturedInstance.mockReset();
+  capturedInstance.mockResolvedValue({ data: {} });
   // Clear localStorage and cookies
   localStorage.clear();
-  Object.defineProperty(document, 'cookie', { writable: true, value: '' });
+  Object.defineProperty(document, 'cookie', { writable: true, configurable: true, value: '' });
   // Reset window.location.href tracking
   delete (window as any).location;
   (window as any).location = { href: '' };
@@ -168,7 +181,7 @@ describe('response interceptor (401 error)', () => {
     localStorage.setItem('flux-auth-store', JSON.stringify(storedState));
 
     const mockedAxios = axios as jest.MockedFunction<typeof axios> & { create: jest.Mock; post: jest.Mock };
-    const instance = mockedAxios.create.mock.results[0].value;
+    const instance = capturedInstance;
 
     // Refresh call returns new tokens
     mockedAxios.post.mockResolvedValueOnce({
@@ -201,7 +214,7 @@ describe('response interceptor (401 error)', () => {
     localStorage.setItem('flux-auth-store', JSON.stringify(storedState));
 
     const mockedAxios = axios as jest.MockedFunction<typeof axios> & { create: jest.Mock; post: jest.Mock };
-    const instance = mockedAxios.create.mock.results[0].value;
+    const instance = capturedInstance;
 
     mockedAxios.post.mockResolvedValueOnce({
       data: { accessToken: 'new-access-token', refreshToken: 'new-refresh-token' },
@@ -226,7 +239,7 @@ describe('response interceptor (401 error)', () => {
     localStorage.setItem('flux-auth-store', JSON.stringify(storedState));
 
     const mockedAxios = axios as jest.MockedFunction<typeof axios> & { create: jest.Mock; post: jest.Mock };
-    const instance = mockedAxios.create.mock.results[0].value;
+    const instance = capturedInstance;
 
     mockedAxios.post.mockResolvedValueOnce({
       data: { accessToken: 'new-access-token', refreshToken: 'new-refresh-token' },
