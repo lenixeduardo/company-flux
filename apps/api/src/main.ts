@@ -10,6 +10,7 @@ async function bootstrap(): Promise<void> {
   const logger = new Logger('Bootstrap');
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    rawBody: true,
     logger: ['error', 'warn', 'log', 'debug', 'verbose'],
   });
 

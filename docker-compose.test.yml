@@ -1,0 +1,64 @@
+version: '3.9'
+
+# Isolated test environment — ephemeral, no volumes, separate ports
+services:
+  postgres-test:
+    image: postgres:16-alpine
+    container_name: flux_postgres_test
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_DB: flux_test
+      POSTGRES_USER: flux
+      POSTGRES_PASSWORD: flux_secret
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U flux -d flux_test']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis-test:
+    image: redis:7-alpine
+    container_name: flux_redis_test
+    ports:
+      - '6380:6379'
+    command: redis-server --save "" --appendonly no
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api-test:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: builder
+    container_name: flux_api_test
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+    environment:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://flux:flux_secret@postgres-test:5432/flux_test
+      REDIS_URL: redis://redis-test:6379
+      JWT_SECRET: test-jwt-secret-that-is-at-least-64-characters-long-for-security-purposes
+      JWT_REFRESH_SECRET: test-refresh-secret-that-is-at-least-64-chars-long-for-security
+      ENCRYPTION_KEY: '0000000000000000000000000000000000000000000000000000000000000000'
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_REGION: us-east-1
+      AWS_S3_BUCKET: test-bucket
+      STRIPE_SECRET_KEY: sk_test_dummy
+      STRIPE_WEBHOOK_SECRET: whsec_dummy
+    command: >
+      sh -c "
+        pnpm --filter=api prisma migrate deploy &&
+        pnpm --filter=api test:cov
+      "
+    volumes:
+      - ./apps/api/coverage:/app/apps/api/coverage
