@@ -48,7 +48,7 @@ type RequestInterceptor = (config: AxiosRequestConfig & { headers: Record<string
 type ResponseFulfilled = (response: any) => any;
 type ResponseRejected = (error: any) => Promise<any>;
 
-let capturedInstance: jest.Mock;
+let capturedInstance: any;
 let cachedRequestInterceptor: RequestInterceptor;
 let cachedResponseFulfilled: ResponseFulfilled;
 let cachedResponseRejected: ResponseRejected;

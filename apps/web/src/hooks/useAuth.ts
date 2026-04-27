@@ -12,7 +12,7 @@ export function useAuth(): UseAuthReturn {
   const logout = async () => {
     try {
       if (store.refreshToken) await authApi.logout(store.refreshToken);
-    } catch (_) {}
+    } catch (_) { /* logout errors are non-fatal */ }
     store.clearAuth();
     router.push('/login');
   };

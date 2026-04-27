@@ -79,7 +79,7 @@ export default function InvoicesPage() {
       const result = await invoicesApi.getDownloadUrl(invoice.id);
       const url = result?.url ?? result;
       if (url) window.open(url, '_blank');
-    } catch (_) {}
+    } catch (_) { /* download errors handled silently */ }
   };
 
   const columns: ColumnDef<Invoice>[] = [
