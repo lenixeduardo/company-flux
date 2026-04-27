@@ -72,7 +72,6 @@ export function SupplierForm({ defaultValues, onSuccess }: SupplierFormProps) {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<SupplierFormData>({
     resolver: zodResolver(schema),

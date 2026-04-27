@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { BullModule } from '@nestjs/bull';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ThrottlerStorageRedisService } from '@nest-lab/throttler-storage-redis';
 import Joi from 'joi';
 import appConfig from './config/app.config.js';
 import databaseConfig from './config/database.config.js';
@@ -71,14 +70,6 @@ import { BillingModule } from './modules/billing/billing.module.js';
             limit: config.get<number>('THROTTLE_LIMIT_PER_TENANT', 100),
           },
         ],
-        storage: new ThrottlerStorageRedisService(config.get<string>('REDIS_URL', 'redis://localhost:6379')),
-        generateKey: (context: import('@nestjs/common').ExecutionContext): string => {
-          const req = context.switchToHttp().getRequest<{ tenantId?: string; user?: { userId?: string } }>();
-          const tenantId = req.tenantId ?? 'anonymous';
-          const userId = req.user?.userId ?? 'guest';
-          const route = context.switchToHttp().getRequest<{ url: string }>().url;
-          return `${tenantId}:${userId}:${route}`;
-        },
       }),
     }),
 

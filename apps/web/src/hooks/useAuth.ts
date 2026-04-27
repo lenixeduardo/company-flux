@@ -1,9 +1,11 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store/auth.store';
+import { useAuthStore, type AuthState } from '@/store/auth.store';
 import { authApi } from '@/lib/api-client';
 
-export function useAuth() {
+export type UseAuthReturn = AuthState & { logout: () => Promise<void> };
+
+export function useAuth(): UseAuthReturn {
   const store = useAuthStore();
   const router = useRouter();
 

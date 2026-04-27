@@ -23,7 +23,7 @@ interface TenantSummary {
   onboardingStep: number;
 }
 
-interface AuthState {
+export interface AuthState {
   user: UserProfile | null;
   accessToken: string | null;
   refreshToken: string | null;

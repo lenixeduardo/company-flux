@@ -44,7 +44,7 @@ jest.mock('axios', () => {
 // Helpers to extract interceptors registered by api-client
 // ---------------------------------------------------------------------------
 
-type RequestInterceptor = (config: AxiosRequestConfig & { headers: Record<string, string> }) => AxiosRequestConfig;
+type RequestInterceptor = (config: AxiosRequestConfig & { headers: Record<string, string> }) => AxiosRequestConfig & { headers: Record<string, string> };
 type ResponseFulfilled = (response: any) => any;
 type ResponseRejected = (error: any) => Promise<any>;
 
@@ -68,7 +68,7 @@ function getResponseInterceptors(): [ResponseFulfilled, ResponseRejected] {
 
 // We import at module level; resetModules is used in some describe blocks
 // to get a fresh isRefreshing state for concurrent-refresh tests.
-import api from './api-client';
+import './api-client';
 
 // ---------------------------------------------------------------------------
 // Setup

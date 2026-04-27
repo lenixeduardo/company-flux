@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import { CheckCircle2, Crown, Loader2, X } from 'lucide-react';
+import { CheckCircle2, Crown, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

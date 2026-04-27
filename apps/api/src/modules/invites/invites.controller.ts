@@ -7,6 +7,7 @@ import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { Public } from '../../common/decorators/public.decorator';
+import { UserRole } from '@flux/shared';
 
 @ApiTags('Invites')
 @Controller('invites')
@@ -15,7 +16,7 @@ export class InvitesController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('OWNER', 'ADMIN')
+  @Roles(UserRole.OWNER, UserRole.ADMIN)
   @Post()
   @ApiOperation({ summary: 'Send email invite to a user' })
   create(@CurrentUser() user: any, @Body() dto: CreateInviteDto) {
@@ -24,7 +25,7 @@ export class InvitesController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('OWNER', 'ADMIN')
+  @Roles(UserRole.OWNER, UserRole.ADMIN)
   @Get()
   @ApiOperation({ summary: 'List all pending invites' })
   list(@CurrentUser() user: any) {
@@ -33,7 +34,7 @@ export class InvitesController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('OWNER', 'ADMIN')
+  @Roles(UserRole.OWNER, UserRole.ADMIN)
   @Delete(':id')
   @ApiOperation({ summary: 'Cancel an invite' })
   cancel(@Param('id') id: string, @CurrentUser() user: any) {

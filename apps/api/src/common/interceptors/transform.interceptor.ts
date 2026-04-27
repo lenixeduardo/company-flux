@@ -27,7 +27,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, ApiResponse<T
           'data' in (value as object) &&
           !Array.isArray(value)
         ) {
-          const typed = value as ResponseWithMeta<T>;
+          const typed = value as unknown as ResponseWithMeta<T>;
           return {
             data: typed.data,
             meta: typed.meta,

@@ -2,6 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateCategoryDto } from './dto/create-category.dto.js';
 import { UpdateCategoryDto } from './dto/update-category.dto.js';
+import { TransactionType } from '@flux/shared';
 
 @Injectable()
 export class CategoriesService {
@@ -118,24 +119,24 @@ export class CategoriesService {
   }
 
   async seedDefaults(): Promise<void> {
-    const systemCategories: Array<{ name: string; type: string; color: string; icon: string }> = [
+    const systemCategories: Array<{ name: string; type: TransactionType; color: string; icon: string }> = [
       // INCOME
-      { name: 'Vendas de Produtos', type: 'INCOME', color: '#22c55e', icon: 'ShoppingCart' },
-      { name: 'Prestação de Serviços', type: 'INCOME', color: '#16a34a', icon: 'Briefcase' },
-      { name: 'Juros e Rendimentos', type: 'INCOME', color: '#4ade80', icon: 'TrendingUp' },
-      { name: 'Outros Recebimentos', type: 'INCOME', color: '#86efac', icon: 'Plus' },
+      { name: 'Vendas de Produtos', type: TransactionType.INCOME, color: '#22c55e', icon: 'ShoppingCart' },
+      { name: 'Prestação de Serviços', type: TransactionType.INCOME, color: '#16a34a', icon: 'Briefcase' },
+      { name: 'Juros e Rendimentos', type: TransactionType.INCOME, color: '#4ade80', icon: 'TrendingUp' },
+      { name: 'Outros Recebimentos', type: TransactionType.INCOME, color: '#86efac', icon: 'Plus' },
       // EXPENSE
-      { name: 'Fornecedores', type: 'EXPENSE', color: '#ef4444', icon: 'Truck' },
-      { name: 'Folha de Pagamento', type: 'EXPENSE', color: '#dc2626', icon: 'Users' },
-      { name: 'Aluguel', type: 'EXPENSE', color: '#f97316', icon: 'Home' },
-      { name: 'Utilities (Água/Luz/Internet)', type: 'EXPENSE', color: '#fb923c', icon: 'Zap' },
-      { name: 'Marketing e Publicidade', type: 'EXPENSE', color: '#a855f7', icon: 'Megaphone' },
-      { name: 'Impostos e Tributos', type: 'EXPENSE', color: '#7c3aed', icon: 'FileText' },
-      { name: 'Equipamentos e TI', type: 'EXPENSE', color: '#3b82f6', icon: 'Monitor' },
-      { name: 'Viagens e Hospedagem', type: 'EXPENSE', color: '#0ea5e9', icon: 'Plane' },
-      { name: 'Alimentação', type: 'EXPENSE', color: '#f59e0b', icon: 'Coffee' },
-      { name: 'Manutenção', type: 'EXPENSE', color: '#84cc16', icon: 'Wrench' },
-      { name: 'Outros', type: 'EXPENSE', color: '#94a3b8', icon: 'MoreHorizontal' },
+      { name: 'Fornecedores', type: TransactionType.EXPENSE, color: '#ef4444', icon: 'Truck' },
+      { name: 'Folha de Pagamento', type: TransactionType.EXPENSE, color: '#dc2626', icon: 'Users' },
+      { name: 'Aluguel', type: TransactionType.EXPENSE, color: '#f97316', icon: 'Home' },
+      { name: 'Utilities (Água/Luz/Internet)', type: TransactionType.EXPENSE, color: '#fb923c', icon: 'Zap' },
+      { name: 'Marketing e Publicidade', type: TransactionType.EXPENSE, color: '#a855f7', icon: 'Megaphone' },
+      { name: 'Impostos e Tributos', type: TransactionType.EXPENSE, color: '#7c3aed', icon: 'FileText' },
+      { name: 'Equipamentos e TI', type: TransactionType.EXPENSE, color: '#3b82f6', icon: 'Monitor' },
+      { name: 'Viagens e Hospedagem', type: TransactionType.EXPENSE, color: '#0ea5e9', icon: 'Plane' },
+      { name: 'Alimentação', type: TransactionType.EXPENSE, color: '#f59e0b', icon: 'Coffee' },
+      { name: 'Manutenção', type: TransactionType.EXPENSE, color: '#84cc16', icon: 'Wrench' },
+      { name: 'Outros', type: TransactionType.EXPENSE, color: '#94a3b8', icon: 'MoreHorizontal' },
     ];
 
     for (const cat of systemCategories) {
