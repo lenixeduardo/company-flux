@@ -66,7 +66,8 @@ export default function InvoicesPage() {
   });
 
   const invoices: Invoice[] = data?.data ?? data ?? [];
-  const pageCount = data?.pageCount ?? data?.meta?.pageCount ?? undefined;
+  const pageCount = data?.pageCount ?? data?.meta?.pageCount ?? data?.totalPages ?? undefined;
+  const totalCount = data?.total ?? data?.meta?.total ?? undefined;
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => invoicesApi.remove(id),
@@ -217,6 +218,7 @@ export default function InvoicesPage() {
         data={invoices}
         columns={columns}
         isLoading={isLoading}
+        totalCount={totalCount}
         pageCount={pageCount}
         pageIndex={pageIndex}
         pageSize={PAGE_SIZE}
