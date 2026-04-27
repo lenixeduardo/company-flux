@@ -40,6 +40,12 @@ src/generated
 apps/api/src/generated
 packages/database/src/generated
 
+# Shared package compiled artifacts (compiled in-place by tsc)
+packages/shared/src/**/*.js
+packages/shared/src/**/*.js.map
+packages/shared/src/**/*.d.ts
+packages/shared/src/**/*.d.ts.map
+
 # TypeScript
 *.tsbuildinfo
 tsconfig.tsbuildinfo
