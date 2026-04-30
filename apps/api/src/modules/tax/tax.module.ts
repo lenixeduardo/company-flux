@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TaxService } from './tax.service';
-import { TaxController } from './tax.controller';
-import { PrismaModule } from '../prisma/prisma.module';
+import { TaxService } from './tax.service.js';
+import { TaxController } from './tax.controller.js';
+import { PrismaModule } from '../prisma/prisma.module.js';
 
 @Module({
   imports: [PrismaModule],

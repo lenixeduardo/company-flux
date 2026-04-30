@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { TaxService } from './tax.service';
-import { CalculateTaxDto, UpdateTaxSettingsDto } from './dto/calculate-tax.dto';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../../common/guards/roles.guard';
-import { Roles } from '../../common/decorators/roles.decorator';
-import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { TaxService } from './tax.service.js';
+import { CalculateTaxDto, UpdateTaxSettingsDto } from './dto/calculate-tax.dto.js';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard.js';
+import { RolesGuard } from '../../common/guards/roles.guard.js';
+import { Roles } from '../../common/decorators/roles.decorator.js';
+import { CurrentUser } from '../../common/decorators/current-user.decorator.js';
 
 @ApiTags('Tax')
 @ApiBearerAuth()

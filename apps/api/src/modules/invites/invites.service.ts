@@ -8,8 +8,8 @@ import {
 import * as crypto from 'crypto';
 import * as bcrypt from 'bcrypt';
 import { PLAN_LIMITS } from '@flux/shared';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateInviteDto } from './dto/create-invite.dto';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { CreateInviteDto } from './dto/create-invite.dto.js';
 
 @Injectable()
 export class InvitesService {

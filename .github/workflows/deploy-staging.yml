@@ -108,7 +108,7 @@ jobs:
               "containerOverrides": [{
                 "name": "api",
                 "image": "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_API }}:${{ env.IMAGE_TAG }}",
-                "command": ["node", "-e", "require(\"./dist/prisma-migrate\").migrate()"],
+                "command": ["node_modules/.bin/prisma", "migrate", "deploy"],
                 "environment": [
                   {"name": "DATABASE_URL", "value": "${{ secrets.STAGING_DATABASE_URL }}"}
                 ]

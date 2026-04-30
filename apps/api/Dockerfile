@@ -5,7 +5,7 @@ FROM node:20-alpine AS base
 
 RUN apk add --no-cache libc6-compat openssl
 
-RUN corepack enable && corepack prepare pnpm@9.4.0 --activate
+RUN corepack enable && corepack prepare pnpm@9.12.3 --activate
 
 WORKDIR /app
 
@@ -21,7 +21,6 @@ COPY turbo.json ./
 # Copy all package.json files from workspace packages before install
 COPY apps/api/package.json ./apps/api/package.json
 COPY packages/shared/package.json ./packages/shared/package.json
-COPY packages/database/package.json ./packages/database/package.json
 
 RUN pnpm install --frozen-lockfile
 
@@ -53,7 +52,6 @@ COPY . .
 
 # Build shared packages first, then the API
 RUN pnpm run build --filter=@flux/shared && \
-    pnpm run build --filter=@flux/database && \
     pnpm run build --filter=api
 
 # Prune dev dependencies — keep only production deps

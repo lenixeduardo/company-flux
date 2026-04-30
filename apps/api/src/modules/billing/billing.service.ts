@@ -1,8 +1,8 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service.js';
 import Stripe from 'stripe';
-import { PLANS_CONFIG } from './plans.config';
+import { PLANS_CONFIG } from './plans.config.js';
 
 @Injectable()
 export class BillingService {
