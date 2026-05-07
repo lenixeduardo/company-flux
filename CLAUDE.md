@@ -144,7 +144,9 @@ Contabilizar e apresentar na tela o número de mensagens da conversa em cada res
 
 ### Skill: /lovable-prompt
 
-Gerador de prompts otimizados para criar landing pages no Lovable.
+Gerador de prompts **otimizados para tokens** e **caveman style** para criar landing pages no Lovable.
+
+**Filosofia:** Simple > Complex. Direct > Verbose. Essential > Decorative.
 
 **Uso:**
 ```
@@ -152,18 +154,36 @@ Gerador de prompts otimizados para criar landing pages no Lovable.
 ```
 
 **Fluxo:**
-1. Descrever landing page (produto, público, objetivo)
+1. Descrever landing page (1-2 frases: produto, público, objetivo)
 2. Claude gera prompt estruturado seguindo:
    - Engenharia de prompt (contexto, role, task, instruções, formato, exemplos)
    - Regras de landing pages (headlines, CTA, social proof, trust signals)
    - UX/UI best practices (acessibilidade, mobile-first, conversão)
-   - Lovable specifics (React, Tailwind, real-time, APIs)
+   - **Caveman Principles** (simplicidade, código claro, sem bloat)
+   - Lovable specifics (React, Tailwind only, real-time, APIs)
+   - **Token Optimization** (prompts 3x menores, mesma qualidade)
 3. Oferta de refinamento (personas, A/B testing, integrações, micro-interactions)
 
 **Recursos:**
 - 7 templates pré-configurados (SaaS, FinTech, B2B, E-commerce, API, Pricing, Case Study)
-- Guidelines completas de prompt engineering, LP, e UX/UI
+- Premium Design System (cores, tipografia, componentes, sombras, animações)
+- **Guidelines de Caveman Style** (simplicidade, legibilidade, sem overhead)
+- **Token Optimization** (70%+ redução de tokens vs prompts genéricos)
 - Quick starters para FinTech, SaaS genérico e Enterprise
-- Foco em conversão e usabilidade
+- Foco em conversão, usabilidade e eficiência
+
+**Princípios Caveman:**
+- Single responsibility per component
+- Explicit over implicit code
+- No decorative elements
+- Design system compliance only
+- Mobile-first, lean-first
+- No external dependencies (React + Tailwind + shadcn/ui only)
+- YAGNI (You Aren't Gonna Need It)
 
 **Localização:** `~/.claude/skills/lovable-prompt/`
+- `SKILL.md` - Documentação
+- `guidelines.md` - Regras completas
+- `caveman-principles.md` - Princípios de simplicidade e token efficiency
+- `design-system.json` - Sistema de design premium
+- `templates.json` - 7 templates pré-configurados
