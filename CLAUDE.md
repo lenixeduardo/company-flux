@@ -132,3 +132,10 @@ Claude pode evoluir e atualizar seus dados/memórias armazenados quando receber 
 ### Economia de Tokens
 
 Sempre fazer perguntas de esclarecimento sobre o assunto/requisito **antes** de implementar, para economizar tokens desnecessários. Registrar dados e decisões importantes no CLAUDE.md para manter memória persistente do projeto.
+
+### Contagem de Mensagens
+
+Contabilizar e apresentar na tela o número de mensagens da conversa em cada resposta:
+- Mostrar formato: `📊 Mensagens: [N/15]` no final de cada resposta
+- Se atingir 15 mensagens → notificar "Limite de 15 mensagens atingido - documentação enviada"
+- Útil para rastrear contexto da conversa e economia de tokens
