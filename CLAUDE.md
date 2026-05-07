@@ -122,3 +122,13 @@ Import as `@flux/shared`. Changes here require rebuilding (`pnpm build`) before 
 | `redis` | BullMQ queues + throttler storage | `localhost:6379` |
 | `mailhog` | SMTP catch-all for dev emails | `localhost:8025` (UI) |
 | `bull-board` | Queue monitoring UI | `localhost:3002` |
+
+---
+
+## Instruções de Memória
+
+Claude pode evoluir e atualizar seus dados/memórias armazenados quando receber uma solicitação para isso. Ao receber tal solicitação, deve responder à pergunta: **"Por que você faz isso e pelo que?"** antes de executar a atualização.
+
+### Economia de Tokens
+
+Sempre fazer perguntas de esclarecimento sobre o assunto/requisito **antes** de implementar, para economizar tokens desnecessários. Registrar dados e decisões importantes no CLAUDE.md para manter memória persistente do projeto.
