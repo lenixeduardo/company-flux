@@ -141,3 +141,29 @@ Contabilizar e apresentar na tela o número de mensagens da conversa em cada res
 - **Ao chegar a 13 mensagens**: Hook `auto-compact-at-13` dispara e alerta para executar `/compact`
 - Hook configurado em `.claude/settings.json` → dispara em `UserPromptSubmit`
 - Útil para rastrear contexto da conversa e economia de tokens
+
+### Skill: /lovable-prompt
+
+Gerador de prompts otimizados para criar landing pages no Lovable.
+
+**Uso:**
+```
+/lovable-prompt
+```
+
+**Fluxo:**
+1. Descrever landing page (produto, público, objetivo)
+2. Claude gera prompt estruturado seguindo:
+   - Engenharia de prompt (contexto, role, task, instruções, formato, exemplos)
+   - Regras de landing pages (headlines, CTA, social proof, trust signals)
+   - UX/UI best practices (acessibilidade, mobile-first, conversão)
+   - Lovable specifics (React, Tailwind, real-time, APIs)
+3. Oferta de refinamento (personas, A/B testing, integrações, micro-interactions)
+
+**Recursos:**
+- 7 templates pré-configurados (SaaS, FinTech, B2B, E-commerce, API, Pricing, Case Study)
+- Guidelines completas de prompt engineering, LP, e UX/UI
+- Quick starters para FinTech, SaaS genérico e Enterprise
+- Foco em conversão e usabilidade
+
+**Localização:** `~/.claude/skills/lovable-prompt/`
