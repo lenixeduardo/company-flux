@@ -138,4 +138,6 @@ Sempre fazer perguntas de esclarecimento sobre o assunto/requisito **antes** de 
 Contabilizar e apresentar na tela o número de mensagens da conversa em cada resposta:
 - Mostrar formato: `📊 Mensagens: [N/15]` no final de cada resposta
 - Se atingir 15 mensagens → notificar "Limite de 15 mensagens atingido - documentação enviada"
+- **Ao chegar a 13 mensagens**: Hook `auto-compact-at-13` dispara e alerta para executar `/compact`
+- Hook configurado em `.claude/settings.json` → dispara em `UserPromptSubmit`
 - Útil para rastrear contexto da conversa e economia de tokens

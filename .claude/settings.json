@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c '\ncount=$(jq -r '.session_id // \"0\"' 2>/dev/null | wc -c)\nif [ \"$count\" -ge 13 ]; then\n  echo '{\"systemMessage\": \"📊 Limite de 13 mensagens atingido! Execute /compact para comprimir o contexto e retornar o arquivo.\"}'\nelse\n  echo '{}'\nfi\n'",
+            "statusMessage": "Monitorando contagem de mensagens...",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "autoMemoryEnabled": true
+}
